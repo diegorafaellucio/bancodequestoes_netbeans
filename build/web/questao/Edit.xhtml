@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditQuestaoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditQuestaoLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{questaoController.selected.id}" title="#{bundle.EditQuestaoTitle_id}" required="true" requiredMessage="#{bundle.EditQuestaoRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditQuestaoLabel_questao}" for="questao" />
+                    <h:inputText id="questao" value="#{questaoController.selected.questao}" title="#{bundle.EditQuestaoTitle_questao}" required="true" requiredMessage="#{bundle.EditQuestaoRequiredMessage_questao}"/>
+                    <h:outputLabel value="#{bundle.EditQuestaoLabel_conteudo}" for="conteudo" />
+                    <h:selectOneMenu id="conteudo" value="#{questaoController.selected.conteudo}" title="#{bundle.EditQuestaoTitle_conteudo}" required="true" requiredMessage="#{bundle.EditQuestaoRequiredMessage_conteudo}">
+                        <f:selectItems value="#{conteudoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditQuestaoLabel_dificuldade}" for="dificuldade" />
+                    <h:selectOneMenu id="dificuldade" value="#{questaoController.selected.dificuldade}" title="#{bundle.EditQuestaoTitle_dificuldade}" >
+                        <f:selectItems value="#{dificuldadeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{questaoController.update}" value="#{bundle.EditQuestaoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditQuestaoViewLink}"/>
+                <br />
+                <h:commandLink action="#{questaoController.prepareList}" value="#{bundle.EditQuestaoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditQuestaoIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

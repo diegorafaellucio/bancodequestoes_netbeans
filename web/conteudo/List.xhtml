@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListConteudoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListConteudoEmpty}" rendered="#{conteudoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{conteudoController.items.rowCount > 0}">
+                    <h:outputText value="#{conteudoController.pagination.pageFirstItem + 1}..#{conteudoController.pagination.pageLastItem + 1}/#{conteudoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{conteudoController.previous}" value="#{bundle.Previous} #{conteudoController.pagination.pageSize}" rendered="#{conteudoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{conteudoController.next}" value="#{bundle.Next} #{conteudoController.pagination.pageSize}" rendered="#{conteudoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{conteudoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListConteudoTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListConteudoTitle_descricao}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descricao}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListConteudoTitle_disciplina}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.disciplina}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{conteudoController.prepareView}" value="#{bundle.ListConteudoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{conteudoController.prepareEdit}" value="#{bundle.ListConteudoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{conteudoController.destroy}" value="#{bundle.ListConteudoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{conteudoController.prepareCreate}" value="#{bundle.ListConteudoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListConteudoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

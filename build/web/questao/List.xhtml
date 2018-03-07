@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListQuestaoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListQuestaoEmpty}" rendered="#{questaoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{questaoController.items.rowCount > 0}">
+                    <h:outputText value="#{questaoController.pagination.pageFirstItem + 1}..#{questaoController.pagination.pageLastItem + 1}/#{questaoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{questaoController.previous}" value="#{bundle.Previous} #{questaoController.pagination.pageSize}" rendered="#{questaoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{questaoController.next}" value="#{bundle.Next} #{questaoController.pagination.pageSize}" rendered="#{questaoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{questaoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestaoTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestaoTitle_questao}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.questao}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestaoTitle_conteudo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.conteudo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestaoTitle_dificuldade}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dificuldade}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{questaoController.prepareView}" value="#{bundle.ListQuestaoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{questaoController.prepareEdit}" value="#{bundle.ListQuestaoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{questaoController.destroy}" value="#{bundle.ListQuestaoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{questaoController.prepareCreate}" value="#{bundle.ListQuestaoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListQuestaoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
